@@ -1,7 +1,6 @@
 import requests, os, pymongo
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 
 from time import sleep
@@ -111,10 +110,14 @@ def scrape_lot(url, page=1, query=None):
         scrape_lot(url, page+1, query=query)
     else:
         print('next not found')
-        
 
 
 def log_block(block, num=0):
+    '''
+        Creates a html file that stores the HTML tree, use this when you want to ctrl+F for a tag or figure out where something is on a page
+        @param block: soup descendant (basically something from a soup.find()) to read the page source.
+        @param num: suffix added to file to differentiate between calls
+    '''
     with open(f'demo{num}.html', 'w') as f:
         f.write(block.prettify())
 
@@ -129,8 +132,6 @@ def addListingsToDb(listings):
     db = client.estateData
     listing_coll = db['listings']
 
-    # estate_db.insert(venues)
-    # listing_coll.drop() # TODO: delete  
     listing_coll.insert_many(listings)
 
 def addVenuesToDb(venues):
@@ -143,10 +144,6 @@ def addVenuesToDb(venues):
     venue_coll.drop()     # Testing tool TODO: delete
     venue_coll.insert_many(venues)
 
-
-
-
-
 def main():
     venues = scrape_auction_houses()
     load_dotenv()
@@ -158,27 +155,7 @@ def main():
     listing_coll.drop() # TODO: delete 
 
     for i, venue in enumerate(venues):
-        # if i == 1:
-            # continue
-        # print(f'\n------ VENUE {i} ------')
-        # if i == 2:
-            # scrape_lot(venue['link'], page=3)
-        # else: 
         scrape_lot(venue['link'])
-        # for j in range(1, 11):
-            # scrape_lot(venue['link'], page=j) 
-    # for i in range(1, 7):
-    #     print(f'1.{i}')
-    #     scrape_lot(f'https://dealhunterauction.hibid.com/catalog/379259/deal-hunter-collector-auction/?cpage={i}')
-
-    # for i in range(1, 7):
-    #     print(f'2.{i}')
-    #     scrape_lot(f'https://dealhunterauction.hibid.com/catalog/380502/deal-hunter-in-manassas/?cpage={i}')
-
-
-    # for i in range(1, 11):
-    #     print(f'3.{i}')
-    #     scrape_lot(f'https://dealhunterauction.hibid.com/catalog/380056/deal-hunter-in-manassas/?cpage={i}')
 
 
 if __name__ == '__main__':
