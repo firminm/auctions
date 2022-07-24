@@ -7,6 +7,13 @@ from time import sleep
 from datetime import datetime
 from dotenv import load_dotenv
 
+"""
+    ---------------------------------------------------
+    --             WARNING - DEPRECATED              --
+    --PLEASE USE scpdeal_hunters.py AS CODE REFERENCE--
+    ---------------------------------------------------
+"""
+
 BASE = 'https://dealhunterauction.hibid.com/'
 
 def scrape_auction_houses():
