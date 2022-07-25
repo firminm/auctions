@@ -10,7 +10,7 @@ self.log_block(x, y) # Creates a file "demo.html" which contains the html in x
 ```
 Creates a file "demo.html" which contains the html in x. 
   > x can be any result of a .find() method
-  > y is the number of the file (ex: log_block(x, 5) will create a file with contents x named "demo5.html")
+  y is the number of the file (ex: log_block(x, 5) will create a file with contents x named "demo5.html")
 You should be using this anytime you do a "block.find()" and are stuck with a "Nonetype does not have method ..."
 
 
